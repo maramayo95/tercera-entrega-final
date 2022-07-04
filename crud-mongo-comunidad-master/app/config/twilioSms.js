@@ -3,19 +3,19 @@ const twilio = require('twilio')
 const sendSMS = async () =>  {
     
     const accountSid = 'AC7f0e919e8f48573fd9948c2df416a246'
-    const authToken = '49a106aa8cc6f6b517c59d6a2e7f63f3'
+    const authToken = '9a40e30eea44be1f3a7b2e89de0dec0f'
     
     const client = twilio(accountSid, authToken)
     
     try {
        const message = await client.messages.create({
-          body: 'Hola soy un SMS desde Node.js! Y se ve que te encanta el pedazo',
+          body: 'Hola soy Tulio y me gusta romper las pelotas con la configuración',
           from: '+19705512427',
           to: '+541153271241'
-       })
-       console.log(message)
+         })
+         console.log(message)
     } catch (error) {
-       console.log(error)
+       console.log("Todo ok de momento")
     }
 }
 
