@@ -7,7 +7,7 @@ const   sendMail = async () =>  {
         port: 587,
         auth: {
             user: TEST_MAIL ,
-            pass: 'ubbmxfjlffkznfwi'
+            pass: process.env.NODEMAILERPASS
         }
     });
     

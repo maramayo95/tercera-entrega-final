@@ -1,6 +1,7 @@
+const client = require('twilio')(accountSid, authToken); 
+
 const accountSid = process.env.ACCOUNTSID ; 
 const authToken = process.env.AUTHTOKEN; 
-const client = require('twilio')(accountSid, authToken); 
 
 const sendWhatsapp = () => {
     client.messages 

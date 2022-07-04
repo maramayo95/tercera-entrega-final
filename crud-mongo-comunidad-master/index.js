@@ -11,9 +11,9 @@ const urlBase = process.env.DB
 
 if (process.env.AMBIENTE == 'mongo') mongoose.connect(urlBase)
 
-// sendMail()
+ sendMail()
 // sendSMS()
 
-sendWhatsapp()
+// sendWhatsapp()
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`))
