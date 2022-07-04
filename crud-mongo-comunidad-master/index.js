@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const app = require('./app/app')
-const sendMail = require('./app/config/nodemailer')
+const sendMail = require('./app/config/nodemailer');
+const sendSMS = require('./app/config/twilioSms');
 require('dotenv').config()
 
 
@@ -17,6 +18,7 @@ if (process.env.AMBIENTE == 'mongo') mongoose.connect(urlBase)
 //     res.render('register')
 // })
 
-sendMail()
+// sendMail()
+sendSMS()
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`))
