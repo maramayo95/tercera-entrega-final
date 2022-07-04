@@ -10,8 +10,8 @@ const sendSMS = async () =>  {
     try {
        const message = await client.messages.create({
           body: 'Hola soy Tulio y me gusta romper las pelotas con la configuración',
-          from: '+19705512427',
-          to: '+541153271241'
+          from: process.env.CELUTWILIO,
+          to: process.env.MICELU
          })
          console.log(message)
     } catch (error) {
