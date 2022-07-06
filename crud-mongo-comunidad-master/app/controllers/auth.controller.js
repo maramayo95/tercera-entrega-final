@@ -13,10 +13,16 @@ class AuthController {
         res.render('register')
     }
     async register(req,res){
-       const salt = await bcrypt.genSalt(10)
-       const password = await bcrypt.hash(req.body.password, salt)
+        try {
+        if(!req.file) return res.send('La foto debe ser obligatoria')
         
-     const user = await  usersSchema.create({
+        const salt = await bcrypt.genSalt(10)
+        const password = await bcrypt.hash(req.body.password, salt)
+        const userExist = await usersSchema.findOne({email: req.body.email}) 
+        if(userExist) throw new Error('El usuario se encuentra registrado')
+        
+
+        const user = await  usersSchema.create({
             name: req.body.name,
             age: req.body.age,
             address: req.body.address,
@@ -28,6 +34,12 @@ class AuthController {
        })
        
         res.json({user})
+        
+      } catch (error) {
+         res.send(error.message)
+      }
+      
+     
     }
 
     async login(req,res){
