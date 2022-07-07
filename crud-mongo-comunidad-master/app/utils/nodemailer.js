@@ -14,12 +14,12 @@ const   sendMail = async (html) =>  {
     const mailOptions = {
         from : TEST_MAIL,
         to: 'matiasaramayo.dev@gmail.com',
-        subject: 'Mail de prueba Node.js',
+        subject: 'Comprobante de Compra',
         html: html
     }
     
-        const  info = await transporter.sendMail(mailOptions)
-        console.log(info)
+      await transporter.sendMail(mailOptions)
+   
    
 }
 

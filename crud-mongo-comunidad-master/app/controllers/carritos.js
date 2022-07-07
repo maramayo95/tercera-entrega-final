@@ -30,14 +30,17 @@ class CarritosController{
     }
 
     async finalizarCompra(req,res){
-        const detalle = await carritoModel.findOne({_id: req.params.id})
-        let productosLista = detalle.productos.map(prods => prods.title)
-        productosLista=productosLista.join(',')
-        
-        const html = `
+        const detalle = await carritoModel.findOne({_id: req.params.id}).populate("productos")
+        let tabla = ''
+         detalle.productos.forEach(prods => {
+            tabla += `  <div> Nombre : ${prods.name}, Precio: ${prods.price}, Cantidad: ${prods.stock}, </div> `
+           
+         })
+
+         const html = `
         <h1>Lista de compra </h1>
         <h2>Detalle </h2>
-        <p>${productosLista}</p>
+        <p>${tabla}</p>
         `
         sendMail(html)
         res.send('enviado')

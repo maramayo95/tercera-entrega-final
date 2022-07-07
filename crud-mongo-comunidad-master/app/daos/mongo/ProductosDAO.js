@@ -9,9 +9,11 @@ class ProductosDAO extends ContenedorMongoDB{
     async guardarProducto(data) {
 
         const producto1 = new Producto({
-            title: data.title,
+            name: data.name,
+            description: data.description,
             price: data.price,
-            url: data.url,
+            image: data.image,
+            stock: data.stock,
             date: Date().toString()
         })
         const productoAgregado = await super.guardar(producto1) 
