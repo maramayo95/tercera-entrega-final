@@ -1,8 +1,10 @@
 const carritoController = require('../controllers/carritos')
+
 const { Router } = require('express')
 
 const route = Router()
 
+route.get('/finalizarCompra/:id', carritoController.finalizarCompra)
 route.get('/', carritoController.traerCarritos)
 route.post('/', carritoController.agregarCarrito)
 route.post('/:idCarrito/producto/:id', carritoController.agregarProductoACarrito)

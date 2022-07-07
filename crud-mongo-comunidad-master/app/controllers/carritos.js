@@ -1,6 +1,7 @@
 require('dotenv').config()
 const carritoDAO = require('../daos/'+process.env.AMBIENTE+'/CarritosDAO')
-
+const sendMail = require('../utils/nodemailer')
+const carritoModel = require('../models/carritos')
 class CarritosController{
 
     async traerCarritos (req, res) {
@@ -26,6 +27,20 @@ class CarritosController{
     async eliminarCarrito(req, res){
         const eliminarCarrito = await carritoDAO.eliminarCarrito(req.params.id)
         res.send(eliminarCarrito)
+    }
+
+    async finalizarCompra(req,res){
+        const detalle = await carritoModel.findOne({_id: req.params.id})
+        let productosLista = detalle.productos.map(prods => prods.title)
+        productosLista=productosLista.join(',')
+        
+        const html = `
+        <h1>Lista de compra </h1>
+        <h2>Detalle </h2>
+        <p>${productosLista}</p>
+        `
+        sendMail(html)
+        res.send('enviado')
     }
 
 }

@@ -14,8 +14,7 @@ class AuthController {
     }
     async register(req,res){
         try {
-        if(!req.file) return res.send('La foto debe ser obligatoria')
-        
+        console.log(req.file)
         const salt = await bcrypt.genSalt(10)
         const password = await bcrypt.hash(req.body.password, salt)
         const userExist = await usersSchema.findOne({email: req.body.email}) 
