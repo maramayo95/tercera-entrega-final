@@ -1,6 +1,6 @@
 const twilio = require('twilio')
 
-const sendSMS = async () =>  {
+const sendSMS = async (info) =>  {
     
     const accountSid = process.env.ACCOUNTSID
     const authToken = process.env.AUTHTOKEN
@@ -9,7 +9,8 @@ const sendSMS = async () =>  {
     
     try {
        const message = await client.messages.create({
-          body: 'Hola soy Tulio y me gusta romper las pelotas con la configuración',
+          body: ` Nuevo Pedido de :  
+          Detalle de compra : ${info}`,
           from: process.env.CELUTWILIO,
           to: process.env.MICELU
          })

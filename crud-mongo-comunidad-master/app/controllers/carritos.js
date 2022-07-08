@@ -1,7 +1,10 @@
 require('dotenv').config()
 const carritoDAO = require('../daos/'+process.env.AMBIENTE+'/CarritosDAO')
 const sendMail = require('../utils/nodemailer')
+const sendWhatsapp = require('../utils/twilioWhatsapp')
+const sendSMS = require('../utils/twilioSms')
 const carritoModel = require('../models/carritos')
+const usersSchema = require('../models/usuarios')
 class CarritosController{
 
     async traerCarritos (req, res) {
@@ -30,19 +33,37 @@ class CarritosController{
     }
 
     async finalizarCompra(req,res){
+        const usuario =  await usersSchema.findOne({_id: req.params.idUsuario})
+        console.log(usuario)
         const detalle = await carritoModel.findOne({_id: req.params.id}).populate("productos")
+        
+
         let tabla = ''
-         detalle.productos.forEach(prods => {
+        detalle.productos.forEach(prods => {
             tabla += `  <div> Nombre : ${prods.name}, Precio: ${prods.price}, Cantidad: ${prods.stock}, </div> `
            
          })
+        
+         let infoMobile = ''
+         
+         const info = () => {
+             detalle.productos.forEach(prods => {
+             infoMobile += `  Nombre : ${prods.name}, Precio: ${prods.price}, Cantidad: ${prods.stock} `
+             
+                })
+                
+        }  
+            
+        info()
 
          const html = `
         <h1>Lista de compra </h1>
         <h2>Detalle </h2>
         <p>${tabla}</p>
         `
-        sendMail(html)
+        // sendMail(html)
+        sendWhatsapp(infoMobile)
+        // sendSMS(info)
         res.send('enviado')
     }
 
