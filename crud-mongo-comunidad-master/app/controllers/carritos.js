@@ -40,30 +40,33 @@ class CarritosController{
 
         let tabla = ''
         detalle.productos.forEach(prods => {
-            tabla += `  <div> Nombre : ${prods.name}, Precio: ${prods.price}, Cantidad: ${prods.stock}, </div> `
+            tabla += `<div> Pedidos del usuario: Email :  ${usuario.email} Nombre : ${usuario.name} </div> 
+             <div> Nombre : ${prods.name}, Precio: ${prods.price}, Cantidad: ${prods.stock}, </div> `
            
          })
         
          let infoMobile = ''
          
-         const info = () => {
+         const infoSmsWhatsapp = () => {
              detalle.productos.forEach(prods => {
-             infoMobile += `  Nombre : ${prods.name}, Precio: ${prods.price}, Cantidad: ${prods.stock} `
+             infoMobile += `
+             Pedidos del usuario: Email :  ${usuario.email} Nombre : ${usuario.name}  
+             Nombre : ${prods.name}, Precio: ${prods.price}, Cantidad: ${prods.stock} `
              
                 })
-                
+
         }  
             
-        info()
+        infoSmsWhatsapp()
 
          const html = `
         <h1>Lista de compra </h1>
         <h2>Detalle </h2>
         <p>${tabla}</p>
         `
-        // sendMail(html)
-        sendWhatsapp(infoMobile)
-        // sendSMS(info)
+        //sendMail(html)
+         sendWhatsapp(infoMobile)
+         sendSMS(infoMobile)
         res.send('enviado')
     }
 
